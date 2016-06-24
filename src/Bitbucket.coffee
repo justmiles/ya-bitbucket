@@ -9,7 +9,7 @@ class Bitbucket
     @log = logger('Bitbucket')
     
     @host         = options.host          or 'api.bitbucket.org'
-    @username     = options.username      or process.env.BITBUCKET_USER
+    @username     = options.username      or process.env.BITBUCKET_USERNAME
     @password     = options.password      or process.env.BITBUCKET_PASSWORD
     @concurrency  = options.concurrency   or 1
     
@@ -19,7 +19,7 @@ class Bitbucket
       methods = require path.join __dirname, 'v2', file
       for method, fn of methods
         Bitbucket::[method] = fn
-
+    
   _request:(method, api, params, payload, callback) ->
     task =
       method: method
