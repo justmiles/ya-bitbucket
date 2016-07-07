@@ -20,6 +20,12 @@ class Bitbucket
       for method, fn of methods
         Bitbucket::[method] = fn
     
+    for file in fs.readdirSync path.join __dirname, 'v1'
+      endpoint = file.replace /.coffee|.js/, ''
+      methods = require path.join __dirname, 'v1', file
+      for method, fn of methods
+        Bitbucket::[method] = fn
+    
   _request:(method, api, params, payload, callback) ->
     task =
       method: method
