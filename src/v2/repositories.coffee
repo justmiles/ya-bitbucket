@@ -1,5 +1,6 @@
 # https://confluence.atlassian.com/bitbucket/repository-resource-423626331.html
 
+async = require 'async'
 
 module.exports =
   
@@ -11,6 +12,25 @@ module.exports =
   getRepositories: (options = {}, callback) ->
     @_request "GET", "2.0/repositories/#{options.team or options.owner}", options.params, options.payload, callback
   
+  getAllRepositories: (options = {}, callback) ->
+    bitbucket = @; pagelen = 0; size = 1; page = 1;repositories = [] 
+    options.params or= {}   
+    options.params.pagelen or= '100'
+    async.whilst(
+      ->
+        pagelen < size
+      (cb)->
+        options.params.page = page
+        bitbucket.getRepositories options, (err, res) ->
+          console.log res
+          pagelen += res.pagelen
+          page++
+          size = res.size
+          repositories = repositories.concat res.values
+          cb err
+      (err)->
+        callback err, repositories
+    )
   
   # https://api.bitbucket.org/2.0/repositories/{owner}/{repo_slug}
   createRepository: (options = {}, callback) ->

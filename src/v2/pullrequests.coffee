@@ -1,5 +1,6 @@
 # https://confluence.atlassian.com/bitbucket/pullrequests-resource-423626332.html#pullrequestsResource-GETalistofopenpullrequests
 
+async = require 'async'
 
 module.exports =
   
@@ -18,3 +19,26 @@ module.exports =
     options.state = 'MERGED'
     @getPullRequests options, callback
     
+  
+  # @example Get all open pull requests
+  # bitbucket.getAllPullRequests {
+  #   team: 'someteam'
+  # }, (err, res) ->
+  #   console.log err, res
+  #  
+  # @option option [String] team 
+  # @option option [String] user
+  getAllPullRequests: (options = {}, callback) ->
+    bitbucket = @
+    @getAllRepositoriesForAuthedUser options, (err, res) ->
+      return err if err
+      pullRequests = []
+      async.each res, (repo, done) ->
+        options.repo_slug = repo.slug
+        bitbucket.getPullRequests options, (err, res) ->
+          pullRequests = pullRequests.concat res.values
+          done err
+      , (err) ->
+        callback err, pullRequests
+      
+        
