@@ -1,18 +1,18 @@
 {
   "name": "ya-bitbucket",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": {
     "name": "justmiles"
   },
   "main": "bitbucket",
-  "homepage": "https://github.com/justmiles/node-bitbucket",
+  "homepage": "https://github.com/justmiles/ya-bitbucket",
   "bugs": {
-    "url": "https://github.com/justmiles/node-bitbucket/issues"
+    "url": "https://github.com/justmiles/ya-bitbucket/issues"
   },
-  "description": "Yet another Node.js client library to interact with Atlassian Bitbucket",
+  "description": "Yet another Node.js client library to interact with Atlassian Bitbucket. Designed to support the latest APIs bitbucket offers.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/justmiles/node-bitbucket.git"
+    "url": "git://github.com/justmiles/ya-bitbucket.git"
   },
   "engines": {
     "node": ">=0.12.x"
