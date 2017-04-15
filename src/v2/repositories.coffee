@@ -22,7 +22,6 @@ module.exports =
       (cb)->
         options.params.page = page
         bitbucket.getRepositories options, (err, res) ->
-          console.log res
           pagelen += res.pagelen
           page++
           size = res.size
